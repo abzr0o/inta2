@@ -8,28 +8,33 @@ datasource db {
 }
 
 model follow {
-  id                             BigInt    @id @default(autoincrement())
-  userid                         BigInt?
-  followerid                     BigInt?
+  id                             Int       @id @default(autoincrement())
+  userid                         Int?
+  followerid                     Int?
   followdate                     DateTime? @db.Date
   users_follow_followeridTousers users?    @relation("follow_followeridTousers", fields: [followerid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users_follow_useridTousers     users?    @relation("follow_useridTousers", fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model profile {
-  id     BigInt  @id @default(autoincrement())
-  userid BigInt? @unique
+  id     Int     @id @default(autoincrement())
+  userid Int?    @unique
   bio    String?
   imgurl String? @db.VarChar(200)
   users  users?  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
-  id                              BigInt   @id @default(autoincrement())
+  id                              Int      @id @default(autoincrement())
   name                            String   @db.VarChar(30)
   password                        String   @db.VarChar(120)
   email                           String   @db.VarChar(80)
   follow_follow_followeridTousers follow[] @relation("follow_followeridTousers")
   follow_follow_useridTousers     follow[] @relation("follow_useridTousers")
   profile                         profile?
+}
+
+model imgs {
+  id     Int    @id @default(autoincrement())
+  imgurl String @unique
 }
