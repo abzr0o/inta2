@@ -3,4 +3,3 @@ server/node_modules
 server/dist
 server/.env
 server/.vscode
-server/public/uploads/**.*
