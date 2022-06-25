@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -w src src/index.ts",
     "build": "tsc ",
-    "start": "node dist/"
+    "start": "node dist/",
+    "test": "mocha "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@prisma/client": "^3.15.2",
     "@types/express": "^4.17.13",
+    "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.0",
     "@types/pg": "^8.6.5",
     "nodemon": "^2.0.18",
