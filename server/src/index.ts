@@ -14,7 +14,7 @@ app.use("/api", router)
 app.use(express.static(path.join(__dirname, "../public")))
 app.disable("x-powered-by")
 app.listen(PORT, () => {
-  console.log(`up and runxning at port ${PORT}`)
+  console.log(`up and running at port ${PORT}`)
 })
 
 export default app
