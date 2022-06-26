@@ -17,24 +17,62 @@ model follow {
 }
 
 model profile {
-  id     Int     @id @default(autoincrement())
-  userid Int?    @unique
-  bio    String?
-  imgurl String? @db.VarChar(200)
-  users  users?  @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id       Int        @id @default(autoincrement())
+  userid   Int?       @unique
+  bio      String?
+  username String     @db.VarChar(30) @unique
+  imgurl   String?    @db.VarChar(200)
+  users    users?     @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comments comments[]
+  likes    likes[]
+  posts    posts[]
+  @@index(userid)
 }
 
 model users {
   id                              Int      @id @default(autoincrement())
   name                            String   @db.VarChar(30)
   password                        String   @db.VarChar(120)
-  email                           String   @db.VarChar(80)
+  email                           String   @unique @db.VarChar(80)
   follow_follow_followeridTousers follow[] @relation("follow_followeridTousers")
   follow_follow_useridTousers     follow[] @relation("follow_useridTousers")
   profile                         profile?
+  
 }
 
 model imgs {
   id     Int    @id @default(autoincrement())
   imgurl String @unique
+}
+
+model comments {
+  id        Int       @id @default(autoincrement())
+  msg       String?
+  profileid Int?
+  postid    Int?
+  datepost  DateTime? @db.Date
+  posts     posts?    @relation(fields: [postid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@index(postid)
+}
+
+model likes {
+  id        Int       @id @default(autoincrement())
+  profileid Int?
+  postid    Int?
+  datepost  DateTime?  @db.Date
+  posts     posts?    @relation(fields: [postid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@index(postid)
+}
+
+model posts {
+  id        Int        @id @default(autoincrement())
+  src       String     @db.VarChar(200)
+  profileid Int?
+  datepost  DateTime?  @db.Date
+  profile   profile?   @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comments  comments[]
+  likes     likes[]
+  @@index(profileid)
 }

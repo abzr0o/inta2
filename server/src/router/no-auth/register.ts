@@ -13,42 +13,34 @@ router.post("/register", async (req: Request, res: Response) => {
     const { email, name, password, confirmPassword }: users =
       await registerSchema.validateAsync(body)
     try {
-      const isEmailExist = await client.users.count({
-        where: {
-          email: {
-            equals: email,
+      const hashedPassword = await bcrybt.hash(password, 12)
+      try {
+        const user = await client.users.create({
+          data: {
+            email,
+            name,
+            password: hashedPassword,
           },
-        },
-      })
+          select: {
+            password: false,
+            name: true,
+            email: true,
+            id: true,
+          },
+        })
+        const token = jwt.sign(user, (process.env as any).TokenSecret, {
+          expiresIn: "2h",
+        })
+        res.json({ token, date: Date.now(), userData: user }).status(200).end()
 
-      if (isEmailExist === 0) {
-        const hashedPassword = await bcrybt.hash(password, 12)
-        try {
-          const user = await client.users.create({
-            data: {
-              email,
-              name,
-              password: hashedPassword,
-            },
-            select: {
-              password: false,
-              name: true,
-              email: true,
-              id: true,
-            },
-          })
-          const token = jwt.sign(user, (process.env as any).TokenSecret, {
-            expiresIn: "2h",
-          })
-          res.json({ token, date: Date.now() }).status(200).end()
-          console.log(process.env)
-          return
-        } catch (err) {
-          console.log(err)
-          res.status(500).json({ error: "server error" }).end()
-        }
+        return
+      } catch (err) {
+        console.log(err)
+
+        res.status(400).json({ error: "email already used" }).end()
+        return
       }
-      res.status(400).json({ error: "email already used" })
+
       return
     } catch (err) {
       res.status(500).send({ error: "server error" }).end()
