@@ -12,37 +12,41 @@ model follow {
   userid                         Int?
   followerid                     Int?
   followdate                     DateTime? @db.Date
-  users_follow_followeridTousers users?    @relation("follow_followeridTousers", fields: [followerid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users_follow_useridTousers     users?    @relation("follow_useridTousers", fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_follow_followeridTousers profile?  @relation("follow_followeridTousers", fields: [followerid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users_follow_useridTousers     profile?  @relation("follow_useridTousers", fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model profile {
-  id       Int        @id @default(autoincrement())
-  userid   Int?       @unique
-  bio      String?
-  username String     @db.VarChar(30) @unique
-  imgurl   String?    @db.VarChar(200)
-  users    users?     @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  comments comments[]
-  likes    likes[]
-  posts    posts[]
+  id                              Int        @id @default(autoincrement())
+  userid                          Int?       @unique
+  bio                             String?
+  username                        String     @unique @db.VarChar(30)
+  imgurl                          String?    @db.VarChar(200)
+  users                           users?     @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  comments                        comments[]
+  likes                           likes[]
+  posts                           posts[]
+  follow_follow_followeridTousers follow[]   @relation("follow_followeridTousers")
+  follow_follow_useridTousers     follow[]   @relation("follow_useridTousers")
+
+  Activity Activity[]
   @@index(userid)
 }
 
 model users {
-  id                              Int      @id @default(autoincrement())
-  name                            String   @db.VarChar(30)
-  password                        String   @db.VarChar(120)
-  email                           String   @unique @db.VarChar(80)
-  follow_follow_followeridTousers follow[] @relation("follow_followeridTousers")
-  follow_follow_useridTousers     follow[] @relation("follow_useridTousers")
-  profile                         profile?
-  
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(30)
+  password String @db.VarChar(120)
+  email    String @unique @db.VarChar(80)
+
+  profile profile?
+
 }
 
 model imgs {
   id     Int    @id @default(autoincrement())
   imgurl String @unique
+  type   String
 }
 
 model comments {
@@ -51,8 +55,9 @@ model comments {
   profileid Int?
   postid    Int?
   datepost  DateTime? @db.Date
-  posts     posts?    @relation(fields: [postid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  posts     posts?    @relation(fields: [postid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
   @@index(postid)
 }
 
@@ -60,19 +65,41 @@ model likes {
   id        Int       @id @default(autoincrement())
   profileid Int?
   postid    Int?
-  datepost  DateTime?  @db.Date
-  posts     posts?    @relation(fields: [postid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  datepost  DateTime? @db.Date
+  posts     posts?    @relation(fields: [postid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  profile   profile?  @relation(fields: [profileid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
   @@index(postid)
 }
 
 model posts {
-  id        Int        @id @default(autoincrement())
-  src       String     @db.VarChar(200)
-  profileid Int?
-  datepost  DateTime?  @db.Date
-  profile   profile?   @relation(fields: [profileid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  comments  comments[]
-  likes     likes[]
+  id             Int        @id @default(autoincrement())
+  src            String     @db.VarChar(200)
+  profileid      Int?
+  body           String
+  datepost       DateTime?  @db.Date
+  profile        profile?   @relation(fields: [profileid], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  comments       comments[]
+  likes          likes[]
+  trendeingScore Int        @default(10)
+  cratedAt       DateTime   @unique @default(now())
+
+  Activity Activity[]
   @@index(profileid)
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+
+model Activity {
+  id        Int      @id @default(autoincrement())
+  profileID Int
+  postId    Int
+  profile   profile  @relation(fields: [profileID], references: [id], onDelete: Cascade)
+  post      posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Date      DateTime @unique @default(now())
 }

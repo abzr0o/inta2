@@ -26,11 +26,14 @@ router.post("/register", async (req: Request, res: Response) => {
             name: true,
             email: true,
             id: true,
+            profile: true,
           },
         })
         const token = jwt.sign(user, (process.env as any).TokenSecret, {
           expiresIn: "2h",
         })
+        req.session.data = { token,date: Date.now(),userData: user }
+        req.session.logedin = true
         res.json({ token, date: Date.now(), userData: user }).status(200).end()
 
         return
