@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "posts" ALTER COLUMN "trendeingScore" SET DEFAULT 0,
+ALTER COLUMN "trendeingScore" SET DATA TYPE DOUBLE PRECISION;

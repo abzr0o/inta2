@@ -20,6 +20,17 @@ const ExplorPost = async (req: Request, res: Response) => {
         include: {
           profile: true,
           _count: true,
+          src: true,
+          comments: {
+            include: {
+              profile: true,
+            },
+          },
+          likes: {
+            include: {
+              profile: true,
+            },
+          },
         },
       });
     } catch (err) {
@@ -29,15 +40,24 @@ const ExplorPost = async (req: Request, res: Response) => {
   } else {
     try {
       queryResult = await client.posts.findMany({
-        take: parseInt(num ? num : "10"),
+        take: parseInt(num ? num : "5"),
         skip: 1,
         orderBy: [sort ? sortQuery : null],
         cursor: { cratedAt: curser },
         include: {
-          comments: true,
-          likes: true,
+          comments: {
+            include: {
+              profile: true,
+            },
+          },
+          likes: {
+            include: {
+              profile: true,
+            },
+          },
           profile: true,
           _count: true,
+          src: true,
         },
       });
     } catch (err) {
@@ -49,6 +69,7 @@ const ExplorPost = async (req: Request, res: Response) => {
     const lastItem = queryResult[queryResult.length - 1];
     const LastCursor = lastItem.cratedAt;
     const SecondQuery = await client.posts.findMany({
+      orderBy: [sort ? sortQuery : null],
       cursor: {
         cratedAt: LastCursor,
       },
@@ -61,7 +82,11 @@ const ExplorPost = async (req: Request, res: Response) => {
         hasnextPage: SecondQuery.length > 1,
       },
     };
-    res.status(200).json(result).end();
+    res
+      .status(200)
+
+      .json(result);
+
     return;
   }
 

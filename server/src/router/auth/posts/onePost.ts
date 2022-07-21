@@ -1,33 +1,38 @@
-import { Request, Response } from "express"
-import jwt from "jsonwebtoken"
-import { client } from "../../../db"
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { client } from "../../../db";
 
 const OnePost = async (req: Request, res: Response) => {
-  const { id } = req.params
+  const { id } = req.params;
   try {
     const data = await client.posts.findUnique({
       where: {
         id: parseInt(id),
       },
       include: {
-        comments: true,
-        likes: true,
-        profile: true,
-      },
-    })
-    res
-      .status(200)
-      .json({
-        posts: {
-          ...data,
-          commentCount: data?.comments.length,
-          likeCount: data?.likes.length,
+        src: true,
+        comments: {
+          include: {
+            profile: true,
+          },
         },
-      })
-  } catch (err) {
-    console.log(err)
-    res.status(500).end()
-  }
-}
+        likes: {
+          include: {
+            profile: true,
+          },
+        },
+        profile: true,
+        _count: true,
+      },
+    });
 
-export default OnePost
+    res.status(200).json({
+      posts: data,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).end();
+  }
+};
+
+export default OnePost;

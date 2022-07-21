@@ -1,22 +1,37 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { cache } from "../../../cache/cache";
 import { client } from "../../../db";
+import ranking from "../../../utils/rankingFun";
+import { updateTrend } from "../../../utils/trendtimer";
 
 const createPost = async (req: Request, res: Response) => {
   const body = req.body;
 
-  const token = req.session.data.token;
-
   try {
-    const data: any = jwt.verify(token, (process.env as any).TokenSecret);
     const post = await client.posts.create({
       data: {
-        profileid: data.id,
-        src: body.src,
+        src: {
+          connect: {
+            imgurl: body.src,
+          },
+        },
+        profile: {
+          connect: {
+            id: req.session.data.userData.id,
+          },
+        },
         datepost: new Date(),
         body: body.body,
+        likes: {
+          create: {
+            profileid: req.session.data.userData.id,
+          },
+        },
       },
       include: {
+        profile: true,
+        src: true,
         comments: true,
         likes: true,
         _count: true,
@@ -30,6 +45,8 @@ const createPost = async (req: Request, res: Response) => {
         },
       })
       .end();
+    updateTrend();
+    cache.flushAll();
     try {
       await client.activity.create({
         data: {

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon -w src src/index.ts",
     "build": "tsc ",
-    "start": "node dist/",
+    "start": "node dist/src/",
     "test": "mocha -r ts-node/register test/index.ts",
     "prisma-watch": "nodemon --watch prisma/schema.prisma --exec prisma generate"
   },
@@ -21,8 +21,10 @@
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
+    "helmet": "^5.1.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "node-cache": "^5.1.2",
     "pg": "^8.7.3"
   },
   "devDependencies": {
@@ -39,7 +41,7 @@
     "@types/supertest": "^2.0.12",
     "chai": "^4.3.6",
     "nodemon": "^2.0.18",
-    "prisma": "^3.15.2",
+    "prisma": "^4.1.0",
     "supertest": "^6.2.3",
     "ts-node": "^10.8.1",
     "tsc": "^2.0.4",

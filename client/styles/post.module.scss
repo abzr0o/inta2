@@ -1,0 +1,150 @@
+@import './colors.scss';
+
+
+
+
+.postBase{
+    width: 100%;
+    // padding: 1rem;
+    background-color: $Card-bg;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    position: relative;
+
+}
+.profilePic{
+    width: 3rem;
+    border-radius: 50%;
+    z-index: 2;
+    background-color: $card-scroll-bg;
+    border: 1px solid black;
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    
+}
+.postPicture{
+    width: 100%;
+}
+.postvideo{
+    width: 100%;
+}
+.postNav{
+    display: flex;
+    
+    background-color: #fafafa;
+    border-radius: $border-scroll;
+    height: 6rem;
+    padding: 1.5rem;
+ 
+   
+}
+.info{
+    margin-left: 1rem;
+}
+.username{
+    width: min-content;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border ease-in 5ms;
+}
+.username:hover{
+    border-bottom: 2px dashed black;
+    font-size: calc(1rem - 1px);
+}
+.time{
+    width: 6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.drop{
+    margin-top: .25rem;
+    margin-left: auto;
+    cursor: pointer;
+}
+.posttext{
+    display: block;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    margin-right: 1.5rem;
+}
+.postFooter{
+    height: 3rem;
+    display: flex;
+    padding: 1rem;
+    font-weight: 500;
+}
+.likes{
+    margin-left: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    width: 5rem;
+    svg{
+        position: relative;
+        color: #3665bd;
+        top: .2rem;
+    }
+    font-weight: 700;
+   
+}
+.actions{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 3rem;
+  
+}
+.actionButton{
+    width: calc(100% / 3.1);
+    margin-top: 5px;
+    height: 100%;
+   margin-bottom: -5px;
+
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 1.2rem;
+    transition: background ease-out 500ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+   
+}
+.like{
+    svg{
+        position: relative;
+        bottom: 0.2rem;
+        right: .3rem;
+    }
+}
+.comment{
+    svg{
+        position: relative;
+        top: .1rem;
+        right: .3rem;
+    }
+}
+.share{
+    svg{
+        position: relative;
+    
+        right: .3rem;
+    }
+
+}
+.share:hover{
+    background-color: rgba(54, 189, 88,0.2);
+
+}
+.like:hover{
+    background-color: rgba(54, 101, 189,.4);
+}
+.comment:hover{
+    background-color: rgba(54, 157, 189,0.4);
+
+}
+

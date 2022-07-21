@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { cache } from "../../../cache/cache";
 import { client } from "../../../db";
 
 const UpdatePost = async (req: Request, res: Response) => {
@@ -22,6 +23,7 @@ const UpdatePost = async (req: Request, res: Response) => {
           id: parseInt(id),
         },
       });
+      cache.flushAll();
       res.status(204).end();
     } catch (err) {
       console.log(err);

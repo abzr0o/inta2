@@ -1,18 +1,18 @@
-import "../styles/globals.scss"
-
-import type { AppProps } from "next/app"
-import { Provider } from "react-redux"
-import { store } from "../utils/store"
-import { QueryClient, QueryClientProvider } from "react-query"
+import "../styles/globals.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import { store } from "../utils/store";
+import { QueryClient, QueryClientProvider } from "react-query";
 function MyApp({ Component, pageProps }: AppProps) {
-  const client = new QueryClient()
+  const client = new QueryClient();
   return (
     <Provider store={store}>
       <QueryClientProvider client={client}>
         <Component {...pageProps} />
       </QueryClientProvider>
     </Provider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

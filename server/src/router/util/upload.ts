@@ -20,7 +20,6 @@ router.post(
 
         const type = file.mimetype.split("/")[0];
 
-        console.log(file);
         if (type !== "image" && type !== "video") {
           res
             .status(400)

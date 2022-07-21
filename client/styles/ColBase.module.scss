@@ -1,0 +1,15 @@
+@import './colors.scss';
+
+
+
+.wrapper{
+    margin-top: .86rem;
+    grid-column: 4/10;
+    overflow-y: auto;
+    border-radius: 20px;
+   
+    
+}
+.wrapper::-webkit-scrollbar{
+    display: none;
+}

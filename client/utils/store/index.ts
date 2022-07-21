@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit"
-import { reducers } from "../reducers"
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import reducers from "../reducers";
 
 export const store = configureStore({
-  reducer: reducers,
-})
+  reducer: reducers as any,
+});

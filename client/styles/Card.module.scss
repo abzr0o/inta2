@@ -1,0 +1,109 @@
+@import './colors.scss';
+
+
+
+
+.CardBase{
+    min-width: 17rem;
+    flex-direction: column;
+    display: flex;
+    background-color: $Card-bg;
+    border-radius: $border;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding: $padding;
+    height: 47%;
+    align-items: stretch;
+    justify-content: center;
+    max-width: 90%;
+
+
+    h3{
+        margin-right: auto;
+    }
+    
+}
+
+
+.scrollContiner{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    background-color: $card-scroll-bg;
+    min-width: calc(100% - 1rem);
+    border-radius: $border-scroll;
+    min-height: calc(100% - 56px);
+    padding: 7px;
+    overflow-y: auto;
+    align-items: center;
+}
+.scrollContiner::-webkit-scrollbar{
+    display: none;
+}
+.scrollItem{
+    background-color: $Card-bg;
+    width: 95%;
+    border-radius: $border-scroll;
+
+    height: 30%;
+    padding: 5px;
+    display: flex;
+    margin-bottom: 10px;
+    transition: transform ease-in-out .1s;
+
+    background-image: linear-gradient(275.1deg,$bg-scroll-item);
+    .info{
+        margin-left: .6rem;
+        height: 90%;
+        h5{
+            font-size: large;
+            font-weight: 600;
+        }
+        h6  {
+            width: 4rem;
+            font-size: 1rem;
+            font-weight: 400;
+            white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+        }
+
+    }
+    h6{
+        font-weight: 300;
+    }
+    
+    
+    
+}
+.scrollItem:hover{
+    transform: scale(1.07);
+}
+.right{
+    margin-left: auto;
+    h6{
+        font-weight: 400;
+        width: 5rem;
+        font-size: .75rem;
+        // margin-left: auto; 
+        white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    div{
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        margin-left: auto;
+        width: 3rem;
+       
+    }
+}
+.img{
+    border-radius: 50%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { cache } from "../../../cache/cache";
 import { client } from "../../../db";
 
 const DeltePost = async (req: Request, res: Response) => {
@@ -18,6 +19,7 @@ const DeltePost = async (req: Request, res: Response) => {
         },
       });
       res.status(204).end();
+      cache.flushAll();
     } catch (err) {
       console.log(err);
       res.status(500).end();
