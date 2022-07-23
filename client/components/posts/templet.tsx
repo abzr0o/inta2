@@ -20,7 +20,7 @@ import React, { FC, forwardRef, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import baseurl from "../../utils/api/baseurl";
-const url = "http://localhost:2000";
+
 interface prop {
   post: post;
   ref?: any;
@@ -55,7 +55,7 @@ const Templet = React.forwardRef(({ post, refeth }: prop, ref: any) => {
     <div ref={ref} className={styles.postBase}>
       <div className={styles.postNav}>
         <img
-          src={url + post.profile.imgurl}
+          src={post.profile.imgurl}
           alt="profile picture"
           className={styles.profilePic}
         />
@@ -102,11 +102,11 @@ const Templet = React.forwardRef(({ post, refeth }: prop, ref: any) => {
         </span>
         {post.src.type === "video" ? (
           <video controls className={styles.postvideo}>
-            <source src={url + post.src.imgurl} />
+            <source src={post.src.imgurl} />
           </video>
         ) : (
           <img
-            src={url + post.src.imgurl}
+            src={post.src.imgurl}
             alt="post picture"
             className={styles.postPicture}
           ></img>

@@ -9,11 +9,16 @@ const createPost = async (req: Request, res: Response) => {
   const body = req.body;
 
   try {
+    const img = await client.imgs.findUnique({
+      where: {
+        imgurl: body.src,
+      },
+    });
     const post = await client.posts.create({
       data: {
         src: {
           connect: {
-            imgurl: body.src,
+            id: img?.id,
           },
         },
         profile: {

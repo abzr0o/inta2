@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseurl = axios.create({
-  baseURL: "http://localhost:2000/api/v1",
+  baseURL: "https://instass1111.herokuapp.com/api/v1",
   withCredentials: true,
 });
 

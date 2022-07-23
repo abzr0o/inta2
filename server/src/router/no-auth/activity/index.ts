@@ -8,8 +8,8 @@ import trending from "./trendning";
 
 const router = Router();
 
-router.get("/activity", cacheMiddleware(3600), GetActvity);
+router.get("/trending", trending);
+router.get("/activity", GetActvity);
 router.get("/comments", GetComments);
-router.get("/trending", cacheMiddleware(3600), trending);
 router.get("/post/:id", OnePost);
 export default router;

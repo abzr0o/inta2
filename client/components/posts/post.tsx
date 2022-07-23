@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import { useInView } from "react-intersection-observer";
 import Templet from "./templet";
-const url = "http://localhost:2000";
+
 function Post({}: any) {
   const { ref, inView } = useInView();
 

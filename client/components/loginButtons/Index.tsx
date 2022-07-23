@@ -7,10 +7,12 @@ function LoginButtons() {
   return (
     <>
       <Link href={"/login"}>
-        <button className={`${styles.login} ${styles.bt}`}>login</button>
+        <button className={`${styles.login} ${styles.bt} small`}>login</button>
       </Link>
       <Link href={"/signup"}>
-        <button className={`${styles.signup} ${styles.bt}`}>sign up</button>
+        <button className={`${styles.signup} ${styles.bt} small`}>
+          sign up
+        </button>
       </Link>
     </>
   );

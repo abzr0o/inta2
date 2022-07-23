@@ -58,8 +58,13 @@
         margin-left: .6rem;
         height: 90%;
         h5{
-            font-size: large;
+            width: 4rem;
+            font-size: small;
             font-weight: 600;
+            font-weight: 400;
+            white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
         }
         h6  {
             width: 4rem;

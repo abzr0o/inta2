@@ -67,3 +67,24 @@ $bg-color:#DAE0E6;
   background-color: black !important;
 }
 
+@media only screen and (max-width: 1065px) {
+  .CardRight{
+    display: none;
+  }
+  .expand1{
+    grid-column: 5/13 !important;
+
+  }
+}
+@media only screen and (max-width: 1065px) {
+  .CardLeft{
+    display: none;
+  }.small{
+    display: none;
+  }
+  .expand1{
+    grid-column: 1/13 !important;
+
+  }
+}
+

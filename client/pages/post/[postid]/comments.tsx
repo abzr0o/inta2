@@ -90,7 +90,7 @@ function Comments({ post }: props) {
                         <div className={styles.left}>
                           <img
                             className={styles.profilepic}
-                            src={"http://localhost:2000" + profile.imgurl}
+                            src={profile.imgurl}
                             alt="profile picture"
                           />
                           <div>{profile.username}</div>

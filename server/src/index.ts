@@ -23,7 +23,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "*",
+    origin: "https://init-lilac.vercel.app",
   })
 );
 app.use(
@@ -38,7 +38,7 @@ app.use(
 
     saveUninitialized: true,
     cookie: {
-      secure: false,
+      secure: true,
       maxAge: 2 * 60 * 60 * 1000,
       httpOnly: false,
       path: "/",

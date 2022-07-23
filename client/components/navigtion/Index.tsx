@@ -41,7 +41,7 @@ function Index() {
         {store.isloggedin ? (
           <div>
             <img
-              src={`http://localhost:2000` + store.user.imgurl}
+              src={ store.user.imgurl}
               width={20}
               alt=""
             />

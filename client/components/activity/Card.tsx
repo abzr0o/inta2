@@ -55,7 +55,7 @@ const ActivityCard: any = ({ title, row }: any) => {
               <div ref={ref} key={item.id} className={style.scrollItem}>
                 <img
                   className={style.img}
-                  src={`http://localhost:2000${item.profile.imgurl}`}
+                  src={item.profile.imgurl}
                   alt="profile"
                 />
 
@@ -77,7 +77,7 @@ const ActivityCard: any = ({ title, row }: any) => {
               <div key={item.id} className={style.scrollItem}>
                 <img
                   className={style.img}
-                  src={`http://localhost:2000${item.profile.imgurl}`}
+                  src={item.profile.imgurl}
                   alt="profile"
                 />
 
