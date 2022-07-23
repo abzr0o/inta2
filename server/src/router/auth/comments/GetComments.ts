@@ -14,7 +14,7 @@ const GetComments = async (req: Request, res: Response) => {
   if (postid) {
     if (!curser) {
       queryResult = await client.comments.findMany({
-        take: parseInt(num ? num : "10"),
+        take: parseInt(num ? num : "5"),
         orderBy: [sort ? sortQuery : null],
         include: {
           profile: true,
@@ -25,7 +25,7 @@ const GetComments = async (req: Request, res: Response) => {
       });
     } else {
       queryResult = await client.comments.findMany({
-        take: parseInt(num ? num : "10"),
+        take: parseInt(num ? num : "5"),
         orderBy: [sort ? sortQuery : null],
         cursor: { datepost: curser },
         include: {
@@ -55,9 +55,8 @@ const GetComments = async (req: Request, res: Response) => {
         comments: queryResult,
         count: queryResult.length,
         pageInfo: {
-          LastCursor:
-            SecondQuery.length > parseInt(num ? num : "5") ? LastCursor : null,
-          hasnextPage: SecondQuery.length > parseInt(num ? num : "5"),
+          LastCursor: SecondQuery.length > 1 ? LastCursor : null,
+          hasnextPage: SecondQuery.length > 1,
         },
       };
       res.status(200).json(result).end();

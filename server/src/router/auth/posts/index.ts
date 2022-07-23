@@ -13,6 +13,4 @@ post.delete("/post/:id", DeltePost);
 post.put("/post/:id", UpdatePost);
 post.post("/post", createPost);
 
-post.get("/post/:id", OnePost);
-
 export default post;

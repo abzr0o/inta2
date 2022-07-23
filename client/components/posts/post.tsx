@@ -21,22 +21,28 @@ const url = "http://localhost:2000";
 function Post({}: any) {
   const { ref, inView } = useInView();
 
-  const { data, isFetchingNextPage, hasNextPage, isLoading, fetchNextPage } =
-    useInfiniteQuery(
-      "posts",
-      async (a) => {
-        const data = await baseurl.get("/posts", {
-          params: { curser: a.pageParam },
-        });
-        return data.data;
+  const {
+    data,
+    isFetchingNextPage,
+    hasNextPage,
+    isLoading,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery(
+    "posts",
+    async (a) => {
+      const data = await baseurl.get("/posts", {
+        params: { curser: a.pageParam },
+      });
+      return data.data;
+    },
+    {
+      refetchOnWindowFocus: false,
+      getNextPageParam: (lastpage) => {
+        return lastpage.pageInfo.LastCursor;
       },
-      {
-        refetchOnWindowFocus: false,
-        getNextPageParam: (lastpage) => {
-          return lastpage.pageInfo.LastCursor;
-        },
-      }
-    );
+    }
+  );
   useEffect(() => {
     if (hasNextPage && inView) {
       fetchNextPage();
@@ -48,9 +54,11 @@ function Post({}: any) {
       {data?.pages.map((page) => {
         return page.posts.map((post: post, i: number) => {
           if (i === 4) {
-            return <Templet key={post.id} ref={ref} post={post} />;
+            return (
+              <Templet key={post.id} ref={ref} post={post} refeth={refetch} />
+            );
           }
-          return <Templet key={post.id} post={post} />;
+          return <Templet key={post.id} post={post} refeth={refetch} />;
         });
       })}
       {isLoading || isFetchingNextPage ? (

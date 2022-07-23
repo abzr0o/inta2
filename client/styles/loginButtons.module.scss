@@ -1,0 +1,35 @@
+@import './colors.scss' ;
+.bt{
+    background-color: transparent;
+    // position: relative;
+    border-radius: 20px ;
+    height: 2.7rem;
+    width: 6rem;
+    border: solid 2px $card-scroll-bg;
+    z-index: 2;
+    font-weight: 500;
+    transition: color ease-in-out .4s;
+    
+}
+.bt a{
+   
+        text-decoration:none;
+    
+}
+
+.login:hover{
+    background: linear-gradient(275.1deg,$bg-scroll-item );
+    color: $Card-bg;
+
+}
+.signup{
+    color: $Card-bg;
+    margin-left: 1rem;
+    background: linear-gradient(275.1deg,$bg-scroll-item );
+
+}
+.signup:hover{
+   background: none;
+   background-color: transparent;
+   color: black;
+}

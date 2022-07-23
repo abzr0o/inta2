@@ -43,7 +43,7 @@ login.post("/login", async (req: Request, res: Response) => {
           );
           req.session.data = {
             token,
-            date: Date.now(),
+            date: 7200000 + Date.now(),
             userData: {
               name: user?.users?.name,
               id: user?.id,
@@ -55,7 +55,7 @@ login.post("/login", async (req: Request, res: Response) => {
           req.session.logedin = true;
           res.status(200).json({
             token,
-            date: Date.now(),
+            date: 7200000 + Date.now(),
             userData: {
               name: user?.users?.name,
               id: user?.id,

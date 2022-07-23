@@ -17,15 +17,37 @@ import {
   ThumbsUp,
 } from "react-feather";
 import React, { FC, forwardRef, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import baseurl from "../../utils/api/baseurl";
 const url = "http://localhost:2000";
 interface prop {
   post: post;
   ref?: any;
+  refeth: any;
 }
-const Templet = React.forwardRef(({ post }: prop, ref) => {
+const Templet = React.forwardRef(({ post, refeth }: prop, ref: any) => {
+  const router = useRouter();
+  const store = useSelector((store: any) => store.authUser);
   const [readmore, setreadmore] = useState(false);
   const [dropDownOpen, setdropDownOpen] = useState(false);
-
+  const openComment = () => {
+    router.push(`/post/${post.id}/comments`);
+  };
+  const deletepost = async (id: any, userid: any) => {
+    try {
+      await baseurl.delete(`/post/${id}`, {
+        params: {
+          userid,
+        },
+      });
+      if (router.pathname === "/") {
+        refeth();
+      } else {
+        router.push("/");
+      }
+    } catch (err) {}
+  };
   const toggoleDropDown = () => {
     setdropDownOpen(!dropDownOpen);
   };
@@ -52,8 +74,14 @@ const Templet = React.forwardRef(({ post }: prop, ref) => {
               <MoreHorizontal size={30} />
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem>1</DropdownItem>
-              <DropdownItem>2</DropdownItem>
+              {store.user && store.user.id === post.profile.id ? (
+                <DropdownItem
+                  onClick={() => deletepost(post.id, store.user.id)}
+                >
+                  delete
+                </DropdownItem>
+              ) : null}
+              <DropdownItem></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -96,7 +124,10 @@ const Templet = React.forwardRef(({ post }: prop, ref) => {
         <button className={`${styles.actionButton}  ${styles.like}`}>
           <ThumbsUp /> <span>like</span>
         </button>
-        <button className={`${styles.actionButton} ${styles.comment}`}>
+        <button
+          onClick={() => openComment()}
+          className={`${styles.actionButton} ${styles.comment}`}
+        >
           <MessageSquare /> <span>comments</span>
         </button>
         <button className={`${styles.actionButton} ${styles.share}`}>
@@ -107,5 +138,5 @@ const Templet = React.forwardRef(({ post }: prop, ref) => {
     </div>
   );
 });
-
+Templet.displayName = "Templet";
 export default Templet;

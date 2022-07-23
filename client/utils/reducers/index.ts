@@ -1,4 +1,5 @@
 import Cards from "../../components/Card/reducer";
-const reducers = { Cards };
+import authUser from "./auth/auth";
+const reducers = { Cards, authUser };
 
 export default reducers;

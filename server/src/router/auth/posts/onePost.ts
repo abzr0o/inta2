@@ -12,6 +12,7 @@ const OnePost = async (req: Request, res: Response) => {
       include: {
         src: true,
         comments: {
+          take: 5,
           include: {
             profile: true,
           },

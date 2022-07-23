@@ -44,3 +44,8 @@ export interface post {
   id: number;
   comments: Array<comment>;
 }
+
+export interface commentsQuery {
+  comments: Array<comment>;
+  pageinfo: { LastCursor: any; hasnextPage: boolean };
+}

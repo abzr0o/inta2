@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../utils/store";
 import { QueryClient, QueryClientProvider } from "react-query";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new QueryClient();
   return (

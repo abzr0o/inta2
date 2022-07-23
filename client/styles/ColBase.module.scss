@@ -6,9 +6,11 @@
     margin-top: .86rem;
     grid-column: 4/10;
     overflow-y: auto;
-    border-radius: 20px;
-   
-    
+       
+}
+.round{
+    border-radius: 20px !important;
+
 }
 .wrapper::-webkit-scrollbar{
     display: none;
